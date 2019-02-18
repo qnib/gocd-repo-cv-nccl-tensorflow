@@ -4,12 +4,12 @@ environments:
     environment_variables:
       DOCKER_TAG: latest
       DOCKER_NO_CACHE: false
-      DOCKER_REG: ip-172-31-47-133.eu-west-1.compute.internal
-      DOCKER_REGISTRY: ip-172-31-47-133.eu-west-1.compute.internal
-      FROM_IMG_REGISTRY: ip-172-31-47-133.eu-west-1.compute.internal
-      UCP_USER: moby
       DOCKER_BUILD_LOCAL: true
-      DOCKER_REGISTRY_INSECURE: true
+      #DOCKER_REG: docker.io
+      #DOCKER_REGISTRY: docker.io
+      #FROM_IMG_REGISTRY: docker.io
+      #UCP_USER: test123
+      #DOCKER_REGISTRY_INSECURE: true
     pipelines:
       - cv-nccl92-tf-dev.1.12.0
 pipelines:
