@@ -1,0 +1,36 @@
+format_version: 3
+environments:
+  generic:
+    environment_variables:
+      DOCKER_TAG: latest
+      DOCKER_NO_CACHE: false
+      DOCKER_REG: ip-172-31-47-133.eu-west-1.compute.internal
+      DOCKER_REGISTRY: ip-172-31-47-133.eu-west-1.compute.internal
+      FROM_IMG_REGISTRY: ip-172-31-47-133.eu-west-1.compute.internal
+      UCP_USER: moby
+      DOCKER_BUILD_LOCAL: true
+      DOCKER_REGISTRY_INSECURE: true
+    pipelines:
+      - cv-nccl92-tf-dev.1.12.0
+pipelines:
+  cv-nccl92-tf-dev.1.12.0:
+    group: cuda-9.2
+    template: DockerBuild
+    label_template: ${COUNT}
+    lock_behavior: none
+    environment_variables:
+      DOCKER_FILE: Dockerfile.cuda
+      DBUILD_BUILD_THREADS: '8'
+      DBUILD_TF_CUDA_VER: '-9.2'
+      DBUILD_CFLAG_MARCH: x86-64
+    materials:
+      git:
+        git: https://github.com/qnib/uplain-bazel-tensorflow
+        shallow_clone: false
+        auto_update: true
+        branch: master
+        destination: docker
+      cv-nccl92:
+        pipeline: cv-nccl92
+        stage: DockerBuild
+        name: cv-nccl92
